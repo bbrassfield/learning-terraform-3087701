@@ -24,6 +24,8 @@ resource "aws_instance" "blog" {
 
   vpc_security_group_ids = [aws_security_group.blog.id]
 
+  key_name = "bbrassfield_learning-terraform"
+
   tags = {
     Name = "HelloWorld"
   }
