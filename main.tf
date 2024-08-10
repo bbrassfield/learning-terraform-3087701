@@ -77,3 +77,18 @@ resource "aws_security_group_rule" "blog_everything_out" {
 
   security_group_id = aws_security_group.blog.id
 }
+
+resource "aws_ebs_volume" "blogvol1" {
+  availability_zone = aws_instance.blog.availability_zone
+  size              = 100
+
+  tags = {
+    Name = "blog-volume-1"
+  }
+}
+
+resource "aws_volume_attachment" "blog" {
+  device_name = "/dev/sdh"
+  volume_id   = aws_ebs_volume.blogvol1.id
+  instance_id = aws_instance.blog.id
+}
