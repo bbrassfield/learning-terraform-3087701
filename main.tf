@@ -35,6 +35,43 @@ resource "aws_instance" "billtest" {
               apt update
               apt install -y joe parted zfs-fuse command-not-found
               apt update
+              groupadd -g 40034 informatica
+              useradd -u 40034 -g informatica informatica
+              cp -rp /etc/skel /home/informatica
+              chown -R informatica.informatica /home/informatica
+              mkdir /mnt/informatica
+              chown informatica.informatica /mnt/informatica
+              chmod 755 /mnt/informatica
+              apt install -y gnupg-agent
+              echo "jenkins ALL=(informatica) NOPASSWD: /usr/bin/rsync" > /etc/sudoers.d/11_jenkins
+              chmod 440 /etc/sudoers.d/11_jenkins
+              echo "ENG_USERS   ALL=(root) /usr/local/sbin/encrypt.sh" > /etc/sudoers.d/51_engineering_passwd_encryptor
+              chmod 440 /etc/sudoers.d/51_engineering_passwd_encryptor
+              echo "DIST_USERS   ALL=(root) NOPASSWD: /usr/local/sbin/install_vault_token.sh" > /etc/sudoers.d/71_jenkins_install_vault_token
+              chmod 440 /etc/sudoers.d/71_jenkins_install_vault_token
+              mkdir /root/tokens
+              chmod 700 /root/tokens
+              touch /usr/local/sbin/install_vault_token.sh
+              chmod 700 /usr/local/sbin/install_vault_token.sh
+              touch /root/java_secure_file
+              chmod 600 /root/java_secure_file
+              touch /usr/local/sbin/jayspt-encryptor.jar
+              chmod 644 /usr/local/sbin/jayspt-encryptor.jar
+              touch /usr/local/sbin/encrypt.sh
+              chmod 755 /usr/local/sbin/encrypt.sh
+              touch /etc/rsyslog.d/20-whisker.conf
+              chmod 755 /etc/rsyslog.d/20-whisker.conf
+              touch /var/log/whisker.log
+              chown syslog.adm /var/log/whisker.log
+              chmod 644 /var/log/whisker.log
+              apt install -y rssh
+              mkdir /mnt/informatica/data
+              chown informatica.informatica /mnt/informatica/data
+              chmod 755 /mnt/informatica/data
+              mkdir /mnt/informatica/sftp
+              chown informatica.informatica /mnt/informatica/sftp
+              chmod 755 /mnt/informatica/sftp
+              touch /root/done_running_user_data_script
               EOF
 }
 
