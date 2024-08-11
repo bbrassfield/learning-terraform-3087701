@@ -59,6 +59,7 @@ resource "aws_instance" "billtest" {
               chmod 644 /usr/local/sbin/jayspt-encryptor.jar
               touch /usr/local/sbin/encrypt.sh
               chmod 755 /usr/local/sbin/encrypt.sh
+              touch /root/user_data_postponed.txt
               echo touch /etc/rsyslog.d/20-whisker.conf >> /root/user_data_postponed.txt
               echo chmod 755 /etc/rsyslog.d/20-whisker.conf >> /root/user_data_postponed.txt
               touch /var/log/whisker.log
