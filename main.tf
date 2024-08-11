@@ -59,18 +59,28 @@ resource "aws_instance" "billtest" {
               chmod 644 /usr/local/sbin/jayspt-encryptor.jar
               touch /usr/local/sbin/encrypt.sh
               chmod 755 /usr/local/sbin/encrypt.sh
-              touch /etc/rsyslog.d/20-whisker.conf
-              chmod 755 /etc/rsyslog.d/20-whisker.conf
+              echo touch /etc/rsyslog.d/20-whisker.conf >> /root/user_data_postponed.txt
+              echo chmod 755 /etc/rsyslog.d/20-whisker.conf >> /root/user_data_postponed.txt
               touch /var/log/whisker.log
-              chown syslog.adm /var/log/whisker.log
+              echo chown syslog /var/log/whisker.log >> /root/user_data_postponed.txt
+              chgrp adm /var/log/whisker.log
               chmod 644 /var/log/whisker.log
-              apt install -y rssh
+              echo apt install -y rssh >> /root/user_data_postponed.txt
               mkdir /mnt/informatica/data
               chown informatica.informatica /mnt/informatica/data
               chmod 755 /mnt/informatica/data
               mkdir /mnt/informatica/sftp
               chown informatica.informatica /mnt/informatica/sftp
               chmod 755 /mnt/informatica/sftp
+              perl -ne 'print if !/End of file/' -i /etc/security/limits.conf
+              echo "root hard nofile 400000" >> /etc/security/limits.conf
+              echo "root soft nofile 380000" >> /etc/security/limits.conf
+              echo "* hard nofile 400000" >> /etc/security/limits.conf
+              echo "* soft nofile 380000" >> /etc/security/limits.conf
+              echo "informatica hard nofile 380000" >> /etc/security/limits.conf
+              echo "informatica soft nofile 380000" >> /etc/security/limits.conf
+              echo "" >> /etc/security/limits.conf
+              echo "# End of file" >> /etc/security/limits.conf
               touch /root/done_running_user_data_script
               EOF
 }
