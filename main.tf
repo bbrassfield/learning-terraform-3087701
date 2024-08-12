@@ -19,7 +19,7 @@ data "aws_vpc" "default" {
 }
 
 resource "aws_instance" "billtest" {
-  ami           = data.aws_ami.app_ami.id
+  ami           = "ami-0075013580f6322a1"
   instance_type = var.instance_type
 
   vpc_security_group_ids = [aws_security_group.billtest.id]
