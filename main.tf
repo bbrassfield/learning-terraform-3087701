@@ -26,6 +26,10 @@ resource "aws_instance" "billtest" {
 
   key_name = "bbrassfield_learning-terraform"
 
+  root_block_device {
+    volume_size = 50
+  }
+
   tags = {
     Name = "Bills Terraform Test VM"
   }
@@ -82,6 +86,14 @@ resource "aws_instance" "billtest" {
               echo "informatica soft nofile 380000" >> /etc/security/limits.conf
               echo "" >> /etc/security/limits.conf
               echo "# End of file" >> /etc/security/limits.conf
+              parted /dev/nvme1n1 mklabel gpt
+              parted /dev/nvme1n1 mkpart primary ext4 0% 100%
+              mkfs.ext4 /dev/nvme1n1p1
+              mkdir /data_volume_1
+              chmod 755 /data_volume_1
+              echo "" >> /etc/fstab
+              echo "/dev/nvme1n1p1   /data_volume_1   ext4   defaults   0   0" >> /etc/fstab
+              mount /dev/nvme1n1p1 /data_volume_1
               touch /root/done_running_user_data_script
               EOF
 }
