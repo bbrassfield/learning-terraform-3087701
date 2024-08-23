@@ -88,34 +88,43 @@ resource "aws_instance" "billtest" {
               echo "informatica soft nofile 380000" >> /etc/security/limits.conf
               echo "" >> /etc/security/limits.conf
               echo "# End of file" >> /etc/security/limits.conf
-              echo "H4sIAJqBxmYAA61W227cNhB9369g94USqpWaoAjaBfRgxA6wQBIEvqAPaSAw0qyW" >> /home/informatica/z.b64
-              echo "sUSqvGTtGAb6G/29fkmHpK6O6yZAFwYskjNzZs5cSN52UhnCVN0xpWHFw1rBHxa0" >> /home/informatica/z.b64
-              echo "0cNajl+ftBTDt+EtrFYV7ImG0iooWA3CFFxow5omshqUYC0kpGNaH6WqElLJo2gk" >> /home/informatica/z.b64
-              echo "q4qKq5zShPTC4zqYqJW0Xf5WCoi3K4K/RtZcFFY1JCf0YEynt1lWtRurUy72UrXM" >> /home/informatica/z.b64
-              echo "8JKVjbRVWso2a1nGOp59fp45LzKvTr0l3C4UaGlVCc6YB8x6N0Dt0FrWcGFvXvxM" >> /home/informatica/z.b64
-              echo "VzPsjt06x1Hljg6R0e0YIx1ipNvh695rK9QY6Ew7qU00xpJ4NvOF/TgoFe7Eaabu" >> /home/informatica/z.b64
-              echo "I4pH10FUneTCuDMv9J6iC59BXamGfhjFNGjNpSh4NRPk5UXY3lUz0Z7Uu/uBsbt7" >> /home/informatica/z.b64
-              echo "mgZKozlisqAuXo0GDsAqUJ6YOcJ26ccjbNQQEDwVwYrOJ4tPUTGUjZHXIOYhhv1L" >> /home/informatica/z.b64
-              echo "t93HOKZ2JjaU4URaeYDyWtu2p2MQHLZPv1LY8wZc5lF4REh113AT0YzG7zfPPgSK" >> /home/informatica/z.b64
-              echo "+H5R9SRHsmmoavdbnmGnOVrKYxXFo/qsRx5qL44WtoK2UbeT8JGbw5L90fOEaKOA" >> /home/informatica/z.b64
-              echo "tfmlshATplFOd1JomNR9NvrdVDGuocAyKdCCsbrPywJKdiAiDKhj5pB+whqK5g4m" >> /home/informatica/z.b64
-              echo "I4VxQujxI/Ww+yWeZ1oqTI8V1xjt5AA3oIpSCoPtG/njQvMvkP/y7Nfn8ddGvKH0" >> /home/informatica/z.b64
-              echo "qFAtSE/+dgqrO1q/Qm9GBqEi2pYlVu/eNs3tD+sgDjcldNN4TMMaC1yn52HvbNhx" >> /home/informatica/z.b64
-              echo "wczI60HOlMJoBhQuamIO4InYrhMydBVyVh6QogVf05m+1QbaCIuzlRX58YbMOnbk" >> /home/informatica/z.b64
-              echo "NH4onWJjkw0n2kkYsjm9ujg7L3ZvLy5PXr8uTnfn+SNmFgM6fujeIrczwYSyrtOZ" >> /home/informatica/z.b64
-              echo "H62lVEAf8wbnNvMSWHpMGdvRIORulVQ3AF304qcesWfvpRR7Xltc1OupPWZXxsT3" >> /home/informatica/z.b64
-              echo "AgrLRMsGTpzgGyZQAVv1QMreHPhx8RuW7LkVDh4JDX8jH9Ndtpg8i/uqDxKaedN8" >> /home/informatica/z.b64
-              echo "vx/fhhz/KzNoru0aMOAoQnqKwqkXhRsd66JoGV42xTp46C99NzmGB0B6omrbonvv" >> /home/informatica/z.b64
-              echo "/Ek0q19Z53R3+ublLrhBk2mEgS4V91WPIuO4dX27my5ncuEfCcRHr/tkBwdSVlUF" >> /home/informatica/z.b64
-              echo "65GjcTrPIA7QdDl9LUvme8vIsYd8A4X3R0jGU5b54Dt5wnIv9F2GNxZt0s3GZQu/" >> /home/informatica/z.b64
-              echo "3IDgCio/Th9GceUo91eH3HsQpzSgDiPhm4G7AOwfHdV/Qb/rnyb/C3IdkH3tz4Ff" >> /home/informatica/z.b64
-              echo "MeyAh8g7UTa2AnI8YIXfSkuODDsf2UajHjaMArchcMxybZw/85IhHiilv4+W6c5F" >> /home/informatica/z.b64
-              echo "wTVeND53XIu///zLYEAeq3L3hTONDdEyga/PCefIMcEfwUlwgwaO4lGs4ZWjao1N" >> /home/informatica/z.b64
-              echo "0tPg/zki9HBHP/r8dQKpIzjx+mnIUL8Yqrdf9jr9KkyT1eofoje29p0LAAA=" >> /home/informatica/z.b64
+              cat << 'SCRIPT' > /home/informatica/z.b64
+              H4sIAAAAAAAAA61XzY7bNhC++ylYXygjspwNiqI1qkOQ3RQG0k2wP8ghDQRGom1m
+              ZVIlqXi3QYC+Rl+vT9IZUpQoe7PZAtHFEsmZb+abH47FrlHaEqY3DdOGT4T//miU
+              DO/KhDfN/2y5sf23aT80WpXc9CtW7PhkUvE1MbxsNS/YhktbCGksq+ukNVxLtuMp
+              aZgxe6WrlFRqL2vFqqISOqc0Jd3h/ntC4PF6Nlq1TX6uJGjQfCOM5bpQsr7LX7La
+              8NnSna3VRsii1TXJCd1a25jlYlHt5q3JhFwrvWNWlKysVVtlpdotdmzBGrH49GyB
+              9i2cOPWojSg0N6rVJUdlzopFZyDXK9C2qIVsb3/6kU4i7IbdoUsg8pkGn+my954G
+              7+kyvH1x0hokAslZo4xNel9SF5N8pH/mhQrcQckMX5JZbzqXVaOEtLjnDr2jYMIn
+              rq91Td/3xwwEUChZiCo6KMpLv7yqoqMdqZ+/BMY+f6GZpzSJEdMRdbNJr2DLWcW1
+              IyZGWI7tuIeNDfcIjgqvxeSDxoeoCAll1Q2XsYt+/QqXOx/70EbHQoIOpJVbXt6Y
+              dtfREQ6G5dMjgbWoOUYeDvcImWlqYRO6oLN385P3E8+RWI8KguTANvVpjc94D0oT
+              eSn3VTLrxaPyOZQebY10RTXWa26Y3WYfIZpJJJdS1jRm4Y6WSnM6AEtlx0U5AFsd
+              feCzF3Y7jm3PS0qM1Zzt8ivd8hlhBs6ZRknDxypcvLudTDNheAGJWIAW25ou8keQ
+              quEyGfkWs5D2gZqlhO4/UAe/PsZ1MVUaEqGVN0DrYIhA50slLfCTuO3CiL94/vPJ
+              L89m9ytyyrK9BlEvMba90VBPyfQlWNaHjFfQe0tsvOu2ru9+mA4i/LbkzdCqM/8N
+              ZWWyC792FlbQuQNSO7AzrcG7gCbkhtgtd+QspykJ9YwPcFlugboRj9E+ENPW2ICG
+              uyLTrUywWnaqgvZOn9xSkgbi36cE0jkfa/u2sixuRHEQ5wKUU4MrNtwl4aHz0+vL
+              s4tidX559fzVq+J0dZFHaqKsn91rVq+sY+3SMm2RLFcd00exkMFtsmZOALkwqKJt
+              aIfXV2Sky6+BtEQoLPB+SypouVYLbmD96SCy32LyjAWxWiFxE3r++qp48fr85eq3
+              64uzU5rS6APyX1ax2l/JydNxxjzkGtSBUTV/jsC/MwkGQNfbop9Q8ZeuUNHTo6oo
+              WWNxeFCtbVrrGsEBHymx/NbvjKvlkB1vXmZsBcrgR4smube+3jKBscuybDrej7x/
+              kpOT0R6OO5mpOW+SkyhErhkOociPSAsJ42Ykb7Nvn97ujLypOTOccGnwABafic8K
+              E46SP47Yw5BpDvu+5c3noSnPsSmHtOxMuOj2QNV0aOXRtLV8VBJ/PdKwsxYbMN1d
+              s2/BootWIm+H1TjMhqP7Oo2NOS4LlOR1fDd8DzMfadtXqnRErWau1cKc2dTcciQZ
+              CC4KVFcUmBzTotgxGOqKqXfCDeJ4B4ehPHuuN+0OMN64nSTqO2qT09Xp7y9W3iya
+              DpMCNyUkO4LDkX6swVtrNQzBpEtBx4ihs8iAjFVVwTrkpJ+CIogtr5ucvlKld9Gq
+              /sY4ytiHNItgO3lAc3fofymetxjZ+RyjR1N3JQrNK99PDrCukXI3oqm1A0GhgBou
+              wEcDNx7YDffVt6DfdH8BvgvyxiO7aomB3f+jQ+SVLOu24nA/wFx8p1qyZ9BcgG1Q
+              6mB9t8EFCYMFZDPaE6cMcUAZHboQXaEX0KCUnzGEkf/+/Q/eNQ6rwksHVUNB7KBT
+              pRHOXkCAP3A8ISwo2Mt7sR5yX3v3Rx3vmAbCSl8XxsIIW1gIylFaQ5eKTNNxLXdd
+              haDyvlXv2A2EKXTrwzaNk6U2NkzLYDFe0Z0P7ge9MGGMv/fPMx7IMDlSJ5/57Oo+
+              QuV1n51M9+WIi8rLLY5G9dnkP4KRKtAJEAAA
+              SCRIPT
               cat /home/informatica/z.b64 | openssl base64 -d | gunzip > /home/informatica/idmc_secure_agent_installer.py
               chown informatica.informatica /home/informatica/idmc_secure_agent_installer.py
               chmod 700 /home/informatica/idmc_secure_agent_installer.py
-              rm -f /home/informatica/z.b64
+              # rm -f /home/informatica/z.b64
               parted /dev/nvme1n1 mklabel gpt
               parted /dev/nvme1n1 mkpart primary ext4 0% 100%
               mkfs.ext4 /dev/nvme1n1p1
