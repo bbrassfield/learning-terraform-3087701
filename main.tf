@@ -40,9 +40,9 @@ resource "aws_instance" "billtest" {
               apt install -y joe parted command-not-found
               apt update
               groupadd -g 40034 informatica
-              useradd -u 40034 -g informatica informatica
-              cp -rp /etc/skel /home/informatica
-              mkdir /home/informatica/install
+              useradd -u 40034 -g informatica -s /bin/bash -m -k /etc/skel informatica
+              # cp -rp /etc/skel /home/informatica
+              mkdir -p /home/informatica/install
               chmod 755 /home/informatica/install
               chown -R informatica.informatica /home/informatica
               mkdir /mnt/informatica
@@ -124,15 +124,16 @@ resource "aws_instance" "billtest" {
               cat /home/informatica/z.b64 | openssl base64 -d | gunzip > /home/informatica/idmc_secure_agent_installer.py
               chown informatica.informatica /home/informatica/idmc_secure_agent_installer.py
               chmod 700 /home/informatica/idmc_secure_agent_installer.py
-              # rm -f /home/informatica/z.b64
-              parted /dev/nvme1n1 mklabel gpt
-              parted /dev/nvme1n1 mkpart primary ext4 0% 100%
-              mkfs.ext4 /dev/nvme1n1p1
-              mkdir /data_volume_1
-              chmod 755 /data_volume_1
-              echo "" >> /etc/fstab
-              echo "/dev/nvme1n1p1   /data_volume_1   ext4   defaults   0   0" >> /etc/fstab
-              mount /dev/nvme1n1p1 /data_volume_1
+              rm -f /home/informatica/z.b64
+              echo "python3 idmc_secure_agent_installer.py /home/informatica /home/informatica/install -u ${idmc_sa_installer_user} -p ${idmc_sa_installer_pass} -g ${idmc_sa_installer_group}" > /root/run_installer.txt
+              # parted /dev/nvme1n1 mklabel gpt
+              # parted /dev/nvme1n1 mkpart primary ext4 0% 100%
+              # mkfs.ext4 /dev/nvme1n1p1
+              # mkdir /data_volume_1
+              # chmod 755 /data_volume_1
+              # echo "" >> /etc/fstab
+              # echo "/dev/nvme1n1p1   /data_volume_1   ext4   defaults   0   0" >> /etc/fstab
+              # mount /dev/nvme1n1p1 /data_volume_1
               touch /root/done_running_user_data_script
               EOF
 }
