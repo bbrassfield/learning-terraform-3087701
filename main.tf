@@ -125,7 +125,7 @@ resource "aws_instance" "billtest" {
               chown informatica.informatica /home/informatica/idmc_secure_agent_installer.py
               chmod 700 /home/informatica/idmc_secure_agent_installer.py
               rm -f /home/informatica/z.b64
-              echo "python3 idmc_secure_agent_installer.py /home/informatica /home/informatica/install -u ${idmc_sa_installer_user} -p ${idmc_sa_installer_pass} -g ${idmc_sa_installer_group}" > /root/run_installer.txt
+              echo "python3 idmc_secure_agent_installer.py /home/informatica /home/informatica/install -u ${var.idmc_sa_installer_user} -p ${var.idmc_sa_installer_pass} -g ${var.idmc_sa_installer_group}" > /root/run_installer.txt
               # parted /dev/nvme1n1 mklabel gpt
               # parted /dev/nvme1n1 mkpart primary ext4 0% 100%
               # mkfs.ext4 /dev/nvme1n1p1
