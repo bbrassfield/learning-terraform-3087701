@@ -57,14 +57,38 @@ resource "aws_instance" "billtest" {
               chmod 440 /etc/sudoers.d/71_jenkins_install_vault_token
               mkdir /root/tokens
               chmod 700 /root/tokens
-              touch /usr/local/sbin/install_vault_token.sh
+              cat << 'INSVLTTKN' > /usr/local/sbin/install_vault_token.b64
+              H4sIAOaey2YAA02NwQqCQBiE7/9T/K0LnmrtJETWwVSkcKPsLGsJLZa7uBsE4ru3
+              2aXbMPPNjDdjtexYLcwd4PUUpsUgCEMAofVDXoWVqosIXRKAvhE3nBuNfqnapluh
+              j/YrAByG6zUmPMUNEtYrZdkUGUaHv6FxMbkEvN+r+2zeWvUWz8dTXmRVfOCXXRXz
+              Is2zquT7pIjoMHVGcOvgcGmRbuEDr/2h8rcAAAA=
+              INSVLTTKN
+              cat /usr/local/sbin/install_vault_token.b64 | openssl base64 -d | gunzip > /usr/local/sbin/install_vault_token.sh
               chmod 700 /usr/local/sbin/install_vault_token.sh
+              rm -f /usr/local/sbin/install_vault_token.b64
               touch /root/java_secure_file
               chmod 600 /root/java_secure_file
               touch /usr/local/sbin/jayspt-encryptor.jar
               chmod 644 /usr/local/sbin/jayspt-encryptor.jar
-              touch /usr/local/sbin/encrypt.sh
+              cat << 'ENCRPTSH' > /usr/local/sbin/encrypt.sh
+              #!/bin/bash
+              . /root/java_secure_file
+              /usr/bin/java -jar /usr/local/sbin/jayspt-encryptor.jar $1
+              unset JASYPT_ENCRYPTOR_PASSWORD
+              unset JASYPT_ENCRYPTOR_ALGORITHM
+              ENCRPTSH
               chmod 755 /usr/local/sbin/encrypt.sh
+              mkdir -p /opt/eng/dwhscripts
+              # chown jenkins.engineering /opt/eng/dwhscripts
+              chmod 770 /opt/eng/dwhscripts
+              ln -s /usr/lib/x86_64-linux-gnu/libidn.so.12 /usr/lib/x86_64-linux-gnu/libidn.so.11
+              cat << 'ENVCONFIG' > /etc/environment
+              JRE_PATH="/jre/lib/server"
+              LD_LIBRARY_PATH=/usr/lib/x86_64-linux-gnu/odbc
+              ODBCINI=/home/informatica/install/odbc.ini
+              ODBCINST=/home/informatica/install/odbcinst.ini
+              ENVCONFIG
+              chmod 644 /etc/environment
               touch /root/user_data_postponed.txt
               echo touch /etc/rsyslog.d/20-whisker.conf >> /root/user_data_postponed.txt
               echo chmod 755 /etc/rsyslog.d/20-whisker.conf >> /root/user_data_postponed.txt
