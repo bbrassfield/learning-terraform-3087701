@@ -88,7 +88,7 @@ resource "aws_instance" "billtest" {
               echo "informatica soft nofile 380000" >> /etc/security/limits.conf
               echo "" >> /etc/security/limits.conf
               echo "# End of file" >> /etc/security/limits.conf
-              cat << 'SCRIPT' > /home/informatica/z.b64
+              cat << 'SCRIPT1' > /home/informatica/z.b64
               H4sIAAAAAAAAA61XzY7bNhC++ylYXygjspwNiqI1qkOQ3RQG0k2wP8ghDQRGom1m
               ZVIlqXi3QYC+Rl+vT9IZUpQoe7PZAtHFEsmZb+abH47FrlHaEqY3DdOGT4T//miU
               DO/KhDfN/2y5sf23aT80WpXc9CtW7PhkUvE1MbxsNS/YhktbCGksq+ukNVxLtuMp
@@ -120,20 +120,20 @@ resource "aws_instance" "billtest" {
               pRHOXkCAP3A8ISwo2Mt7sR5yX3v3Rx3vmAbCSl8XxsIIW1gIylFaQ5eKTNNxLXdd
               haDyvlXv2A2EKXTrwzaNk6U2NkzLYDFe0Z0P7ge9MGGMv/fPMx7IMDlSJ5/57Oo+
               QuV1n51M9+WIi8rLLY5G9dnkP4KRKtAJEAAA
-              SCRIPT
+              SCRIPT1
               cat /home/informatica/z.b64 | openssl base64 -d | gunzip > /home/informatica/idmc_secure_agent_installer.py
               chown informatica.informatica /home/informatica/idmc_secure_agent_installer.py
               chmod 700 /home/informatica/idmc_secure_agent_installer.py
               rm -f /home/informatica/z.b64
-              echo "python3 idmc_secure_agent_installer.py /home/informatica /home/informatica/install -u ${var.idmc_sa_installer_user} -p ${var.idmc_sa_installer_pass} -g ${var.idmc_sa_installer_group}" > /root/run_installer.txt
-              # parted /dev/nvme1n1 mklabel gpt
-              # parted /dev/nvme1n1 mkpart primary ext4 0% 100%
-              # mkfs.ext4 /dev/nvme1n1p1
-              # mkdir /data_volume_1
-              # chmod 755 /data_volume_1
-              # echo "" >> /etc/fstab
-              # echo "/dev/nvme1n1p1   /data_volume_1   ext4   defaults   0   0" >> /etc/fstab
-              # mount /dev/nvme1n1p1 /data_volume_1
+              cat << 'SCRIPT2' > /home/informatica/run_installer.sh
+              #!/bin/bash
+              cd /home/informatica
+              time python3 idmc_secure_agent_installer.py /home/informatica /home/informatica/install -u ${var.idmc_sa_installer_user} -p ${var.idmc_sa_installer_pass} -g ${var.idmc_sa_installer_group}
+              SCRIPT2
+              chown informatica.informatica /home/informatica/run_installer.sh
+              chmod 700 /home/informatica/run_installer.sh
+              sudo -H -u informatica /home/informatica/run_installer.sh > /home/informatica/run_installer.log 2>&1
+              chown informatica.informatica /home/informatica/run_installer.log
               touch /root/done_running_user_data_script
               EOF
 }
@@ -185,17 +185,17 @@ resource "aws_security_group_rule" "billtest_everything_out" {
   security_group_id = aws_security_group.billtest.id
 }
 
-resource "aws_ebs_volume" "billtestvol1" {
-  availability_zone = aws_instance.billtest.availability_zone
-  size              = 100
+# resource "aws_ebs_volume" "billtestvol1" {
+#   availability_zone = aws_instance.billtest.availability_zone
+#   size              = 100
+#
+#   tags = {
+#     Name = "billtest-volume-1"
+#   }
+# }
 
-  tags = {
-    Name = "billtest-volume-1"
-  }
-}
-
-resource "aws_volume_attachment" "billtest" {
-  device_name = "/dev/sdh"
-  volume_id   = aws_ebs_volume.billtestvol1.id
-  instance_id = aws_instance.billtest.id
-}
+# resource "aws_volume_attachment" "billtest" {
+#   device_name = "/dev/sdh"
+#   volume_id   = aws_ebs_volume.billtestvol1.id
+#   instance_id = aws_instance.billtest.id
+# }
